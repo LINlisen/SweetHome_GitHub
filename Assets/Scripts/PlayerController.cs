@@ -6,7 +6,7 @@ using Photon.Pun;
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] GameObject camerHolder;
-    [SerializeField] float mouseSensitivity, walkSpeed, jumpForce, smoothTime;
+    [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
 	[SerializeField] Item[] items;
 
 	int itemIndex;
@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
 			return;
 		Look();
 		Move();
-		Jump();
 
         for (int i = 0; i < items.Length; i++)
         {
@@ -58,14 +57,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 	}
-
-	void Jump()
-	{
-		if(Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-			rb.AddForce(transform.up* jumpForce);
-        }
-    }
 
 	void Move()
 	{
