@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Item[] items;
 
 	int itemIndex;
-	int previousItemIndex = -1; 
-
+	int previousItemIndex = -1;
+    public GameObject rotation_Wall;
+    public GameObject RedDoor;
+    public GameObject BlueDoor;
     float verticalLookRotation;
     bool grounded;
     Vector3 smoothMoveVelocity;
@@ -104,5 +106,65 @@ public class PlayerController : MonoBehaviour
 		if (!PV.IsMine)
 			return;
 		rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+    }
+    float rotate = 0;
+
+    void OnTriggerStay(Collider other)
+    {
+        /*Rotation_Wall_Setting*/
+        if (other.gameObject.name == "RotationDoorR")
+        {
+            Debug.Log(other.gameObject.name);
+            rotate -= 2;
+           
+            
+            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+        }
+        if (other.gameObject.name == "RotationDoorL")
+        {
+            Debug.Log(other.gameObject.name);
+            rotate += 2;
+            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+        }
+        if (other.gameObject.name == "RotationDoor")
+        {
+            Debug.Log(other.gameObject.name);
+           
+            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+        }
+        /*Color_Door_Setting*/
+        if (other.gameObject.name == "RedDoor")//only PlayerId==odd can pass
+        {
+
+            if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
+            {
+                RedDoor.SetActive(true);
+            }
+            else
+            {
+                RedDoor.SetActive(false);
+            }
+        }
+        if (other.gameObject.name == "BlueDoor")//only PlayerId==even can pass
+        {
+
+            if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
+            {
+                BlueDoor.SetActive(false);
+            }
+            else
+            {
+                BlueDoor.SetActive(true);
+            }
+        }
+        if (other.gameObject.name == "Cookie3_cell" || other.gameObject.name == "Cookie3_cell_001" || other.gameObject.name == "Cookie3_cell_002" || other.gameObject.name == "Cookie3_cell_003" || other.gameObject.name == "Cookie3_cell_004")
+        {
+            this.transform.position += new Vector3(0, 10f * Time.deltaTime * 50.0f, 0);
+        }
+
+        rotation_Wall.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+
+
+
     }
 }
