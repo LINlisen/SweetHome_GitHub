@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject RedDoor;
     public GameObject BlueDoor;
     float verticalLookRotation;
+    private bool isLock = true;
     bool grounded;
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
@@ -44,10 +45,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isLock = false;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            isLock = true;
+        }
 
-		if (!PV.IsMine)
+        if (!PV.IsMine)
 			return;
-		Look();
+        if (!isLock)
+        {
+            Look();
+        }
+		
 		Move();
 
         for (int i = 0; i < items.Length; i++)
@@ -133,28 +146,32 @@ public class PlayerController : MonoBehaviour
             other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
         }
         /*Color_Door_Setting*/
-        if (other.gameObject.name == "RedDoor")//only PlayerId==odd can pass
+        if (other.gameObject.name == "BlueDoor")//only PlayerId==odd can pass
         {
 
             if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
             {
-                other.gameObject.SetActive(true);
+               // other.gameObject.SetActive(true);
+                other.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             }
             else
             {
-                other.gameObject.SetActive(false);
+                //other.gameObject.SetActive(false);
+                other.gameObject.transform.GetChild(3).gameObject.SetActive(false);
             }
         }
-        if (other.gameObject.name == "BlueDoor")//only PlayerId==even can pass
+        if (other.gameObject.name == "RedDoor")//only PlayerId==even can pass
         {
 
             if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
             {
-                other.gameObject.SetActive(false);
+                //other.gameObject.SetActive(false);
+                other.gameObject.transform.GetChild(3).gameObject.SetActive(false);
             }
             else
             {
-                other.gameObject.SetActive(true);
+                //other.gameObject.SetActive(true);
+                other.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             }
         }
         if (other.gameObject.name == "Cookie3_cell" || other.gameObject.name == "Cookie3_cell_001" || other.gameObject.name == "Cookie3_cell_002" || other.gameObject.name == "Cookie3_cell_003" || other.gameObject.name == "Cookie3_cell_004")
