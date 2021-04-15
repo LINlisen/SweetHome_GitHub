@@ -111,9 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCrouch: 0
-  rotation_Wall: {fileID: 0}
-  RedDoor: {fileID: 0}
-  BlueDoor: {fileID: 0}
+  rotation_Wall: {fileID: 5281311928055882982, guid: fa3e1b0a7c213484f8d56749bebc80c9,
+    type: 3}
+  RedDoor: {fileID: 8046084605286277068, guid: 5a63f76009c9acb42b7953abc7afd819, type: 3}
+  BlueDoor: {fileID: 2420137946719397831, guid: 4175929ea54ca8243bce5a6f106431ad,
+    type: 3}
   isWalk: 0
 --- !u!54 &1321882098543689980
 Rigidbody:
