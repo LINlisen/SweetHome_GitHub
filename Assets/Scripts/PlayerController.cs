@@ -138,11 +138,11 @@ public class PlayerController : MonoBehaviour
 
             if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
             {
-                RedDoor.SetActive(true);
+                other.gameObject.SetActive(true);
             }
             else
             {
-                RedDoor.SetActive(false);
+                other.gameObject.SetActive(false);
             }
         }
         if (other.gameObject.name == "BlueDoor")//only PlayerId==even can pass
@@ -150,11 +150,11 @@ public class PlayerController : MonoBehaviour
 
             if (this.GetComponent<TTPlayerState>().PlayerId % 2 == 0)
             {
-                BlueDoor.SetActive(false);
+                other.gameObject.SetActive(false);
             }
             else
             {
-                BlueDoor.SetActive(true);
+                other.gameObject.SetActive(true);
             }
         }
         if (other.gameObject.name == "Cookie3_cell" || other.gameObject.name == "Cookie3_cell_001" || other.gameObject.name == "Cookie3_cell_002" || other.gameObject.name == "Cookie3_cell_003" || other.gameObject.name == "Cookie3_cell_004")
