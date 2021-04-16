@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             if (this.GetComponent<PhotonView>().ViewID % 2 == 0)
             {
                 // other.gameObject.SetActive(true);
-                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(123, 250, 111, 100);
+                
                 other.gameObject.transform.GetChild(3).gameObject.SetActive(true);
             }
             else
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
             if (this.GetComponent<PhotonView>().ViewID % 2 == 0)
             {
                 //other.gameObject.SetActive(false);
-                this.gameObject.GetComponent<MeshRenderer>().materials = Color.red;
+                
                 other.gameObject.transform.GetChild(3).gameObject.SetActive(false);
             }
             else
