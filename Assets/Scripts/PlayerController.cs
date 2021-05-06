@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TouchControlsKit;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,18 +16,19 @@ public class PlayerController : MonoBehaviour
     public GameObject RedDoor;
     public GameObject BlueDoor;
     float verticalLookRotation;
+    float rotation;
     private bool isLock = true;
     bool grounded;
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
-    
-    Rigidbody rb;
+
+    CharacterController rb;
 
 	PhotonView PV;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<CharacterController>();
 		PV = GetComponent<PhotonView>();
 	}
 
@@ -56,13 +58,14 @@ public class PlayerController : MonoBehaviour
 
         if (!PV.IsMine)
 			return;
-        if (!isLock)
-        {
-            Look();
-        }
-		
-		Move();
+        //      if (!isLock)
+        //      {
+        //          Look();
+        //      }
 
+        //Move();
+        Vector2 look = TCKInput.GetAxis("Touchpad");
+        PlayerRotation(look.x, look.y);
         for (int i = 0; i < items.Length; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
@@ -73,25 +76,60 @@ public class PlayerController : MonoBehaviour
         }
 	}
 
-	void Move()
-	{
+	//void Move()
+	//{
 
-		Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+	//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-		moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
-	}
+	//	moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
+	//}
 
-    void Look()
+ //   void Look()
+ //   {
+	//	transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+
+	//	verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+	//	verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+
+	//	camerHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+	//}
+    private void PlayerMovement(float horizontal, float vertical)
     {
-		transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+        //bool grounded = controller.isGrounded;
 
-		verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-		verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+        Vector3 moveDirection =rb.transform.forward * vertical;
+        moveDirection += rb.transform.right * horizontal;
 
-		camerHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
-	}
+        moveDirection.y = -10f;
 
-	void EquipItem(int _index)
+        //if (jump)
+        //{
+        //    jump = false;
+        //    moveDirection.y = 25f;
+        //    isPorjectileCube = !isPorjectileCube;
+        //}
+
+        //if (grounded)
+        //    moveDirection *= 7f;
+
+        rb.Move(moveDirection * Time.fixedDeltaTime*10.0f);
+
+        //if (!prevGrounded && grounded)
+        //    moveDirection.y = 0f;
+
+        //prevGrounded = grounded;
+    }
+
+    // PlayerRotation
+    public void PlayerRotation(float horizontal, float vertical)
+    {
+        rb.transform.Rotate(0f, horizontal * 12f, 0f);
+        rotation += vertical * 12f;
+        rotation = Mathf.Clamp(rotation, -60f, 60f);
+        camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
+    }
+
+    void EquipItem(int _index)
     {
 
 		if (_index == previousItemIndex)
@@ -118,7 +156,9 @@ public class PlayerController : MonoBehaviour
     {
 		if (!PV.IsMine)
 			return;
-		rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+		//rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+        Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
+        PlayerMovement(move.x, move.y);
     }
     float rotate = 0;
 
