@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.IO;
 
+
 public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
@@ -23,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     void CreateController()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), new Vector3 (0,10,0), Quaternion.identity);
+        int i = UnityEngine.Random.Range(0, 50);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), new Vector3 (i,20,0), Quaternion.identity);
     }
 }
