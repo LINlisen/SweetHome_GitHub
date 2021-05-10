@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
 		previousItemIndex = itemIndex;
     }
 
+
 	public void SetGroundedState(bool _grounded)
     {
 		grounded = _grounded;
