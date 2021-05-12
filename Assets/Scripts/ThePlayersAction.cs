@@ -7,6 +7,7 @@ public class ThePlayersAction : MonoBehaviour
     private bool _bIsDash;
     private float dashTime;
     private Vector3 directionXOZ;
+    public CharacterController playerController;
     public float dashDuration;// 控制冲刺时间
     public float dashSpeed;// 冲刺速度
     // Start is called before the first frame update
@@ -19,37 +20,35 @@ public class ThePlayersAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        if (_bIsDash == true&&dashTime<=dashDuration)
+        {
+            dashTime += Time.deltaTime;
+            playerController.Move(directionXOZ * dashTime * dashSpeed);
+            if (dashTime > dashDuration)
+            {
+                _bIsDash = false;
+                dashTime = 0f;
+            }
+            
+        }
     }
-    public void Dash(CharacterController rb)
+    public void Dash(CharacterController playerController)
     {
+        _bIsDash = true;
+        //Vector3 i = new Vector3(10f, 0f, 10f);
+        //playerController.Move(i);
+        Debug.Log("dash");
 
-        ////Vector3 i = new Vector3(10f, 0f, 0f);
-        ////rb.Move(i);
-        ////Debug.Log("dash");
-        ////if (!_bIsDash)
-        ////{
 
-        //rb = GetComponent<CharacterController>();
-        //        _bIsDash = true;
-        //        directionXOZ = rb.transform.forward;// forward 指向物体当前的前方
-        //        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
 
-        //}
-        //else
-        //{
-        //    if (dashTime <= 0)// reset
-        //    {
-        //        _bIsDash = false;
 
-        //        dashTime = dashDuration;
-        //    }
-        //    else
-        //    {
-        //        dashTime -= Time.deltaTime;
-        //       rb.Move(directionXOZ * dashTime * dashSpeed);// rigidbody = GetComponent<Rigidbody>(); 加在 Start() 函数中
-        //    }
-        //}
+
+        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+        directionXOZ = playerController.transform.forward;// forward 指向物体当前的前方
+       
+        
+       
+
 
     }
     public void clickDash()

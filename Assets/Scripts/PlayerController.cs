@@ -22,13 +22,14 @@ public class PlayerController : MonoBehaviour
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
 
-    CharacterController rb;
-
+    CharacterController playerController;
+    Rigidbody rb;
 	PhotonView PV;
 
     void Awake()
     {
-        rb = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        playerController = GetComponent<CharacterController>();
 		PV = GetComponent<PhotonView>();
 	}
 
@@ -41,8 +42,9 @@ public class PlayerController : MonoBehaviour
         else
         {
 			Destroy(GetComponentInChildren<Camera>().gameObject);
-			Destroy(rb);
-		}
+            Destroy(playerController);
+            Destroy(rb);
+        }
     }
 
     private void Update()
@@ -97,33 +99,26 @@ public class PlayerController : MonoBehaviour
     {
         //bool grounded = controller.isGrounded;
 
-        Vector3 moveDirection =rb.transform.forward * vertical;
-        moveDirection += rb.transform.right * horizontal;
+        Vector3 moveDirection = playerController.transform.forward * vertical;
+        moveDirection += playerController.transform.right * horizontal;
 
-        moveDirection.y = -10f;
+        //Vector3 moveDirection = rb.transform.forward * vertical;
+        //moveDirection += rb.transform.right * horizontal;
+        moveDirection.y = -1.0f;
 
-        //if (jump)
-        //{
-        //    jump = false;
-        //    moveDirection.y = 25f;
-        //    isPorjectileCube = !isPorjectileCube;
-        //}
 
-        //if (grounded)
-        //    moveDirection *= 7f;
 
-        rb.Move(moveDirection * Time.fixedDeltaTime*10.0f);
+        playerController.Move(moveDirection * Time.fixedDeltaTime * 10.0f);
+        //rb.MovePosition(moveDirection * Time.fixedDeltaTime * 10.0f);
 
-        //if (!prevGrounded && grounded)
-        //    moveDirection.y = 0f;
 
-        //prevGrounded = grounded;
     }
 
     // PlayerRotation
     public void PlayerRotation(float horizontal, float vertical)
     {
-        rb.transform.Rotate(0f, horizontal * 12f, 0f);
+        playerController.transform.Rotate(0f, horizontal * 12f, 0f);
+        //rb.transform.Rotate(0f, horizontal * 12f, 0f);
         rotation += vertical * 12f;
         rotation = Mathf.Clamp(rotation, -60f, 60f);
         camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
@@ -132,23 +127,23 @@ public class PlayerController : MonoBehaviour
     void EquipItem(int _index)
     {
 
-		if (_index == previousItemIndex)
-			return;
+        if (_index == previousItemIndex)
+            return;
 
-		itemIndex = _index;
+        itemIndex = _index;
 
-		items[itemIndex].itemGameObject.SetActive(true);
+        items[itemIndex].itemGameObject.SetActive(true);
 
-		if(previousItemIndex != -1)
+        if (previousItemIndex != -1)
         {
-			items[previousItemIndex].itemGameObject.SetActive(false);
+            items[previousItemIndex].itemGameObject.SetActive(false);
         }
 
-		previousItemIndex = itemIndex;
+        previousItemIndex = itemIndex;
     }
 
 
-	public void SetGroundedState(bool _grounded)
+    public void SetGroundedState(bool _grounded)
     {
 		grounded = _grounded;
     }
@@ -157,7 +152,7 @@ public class PlayerController : MonoBehaviour
     {
 		if (!PV.IsMine)
 			return;
-		//rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+		//playerController.MovePosition(playerController.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
         Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
         PlayerMovement(move.x, move.y);
     }
