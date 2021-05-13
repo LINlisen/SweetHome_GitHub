@@ -25,6 +25,6 @@ public class PlayerManager : MonoBehaviour
     void CreateController()
     {
         int i = UnityEngine.Random.Range(0, 50);
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), new Vector3 (i,20,0), Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy Variant"), new Vector3 (i,20,0), Quaternion.identity);
     }
 }

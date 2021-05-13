@@ -99,8 +99,8 @@ public class PlayerController : MonoBehaviour
     {
         //bool grounded = controller.isGrounded;
 
-        Vector3 moveDirection = playerController.transform.forward * vertical;
-        moveDirection += playerController.transform.right * horizontal;
+        Vector3 moveDirection = playerController.transform.forward * horizontal;
+        moveDirection -= playerController.transform.right * vertical ;
 
         //Vector3 moveDirection = rb.transform.forward * vertical;
         //moveDirection += rb.transform.right * horizontal;
