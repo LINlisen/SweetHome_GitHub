@@ -219,7 +219,12 @@ public class PlayerController : MonoBehaviour
 
         rotation_Wall.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
 
-
+        /*PotionGet*/
+        if (other.gameObject.name == "Potion(Clone)")
+        {
+            Destroy(other.gameObject);
+            Debug.Log("get");
+        }
 
     }
 }
