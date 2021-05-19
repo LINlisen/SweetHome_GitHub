@@ -14,45 +14,45 @@ public class ThePlayersAction : MonoBehaviour
     void Start()
     {
         _bIsDash = false;
-       
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_bIsDash == true&&dashTime<=dashDuration)
-        {
-            dashTime += Time.deltaTime;
-            playerController.Move(directionXOZ * dashTime * dashSpeed);
-            if (dashTime > dashDuration)
-            {
-                _bIsDash = false;
-                dashTime = 0f;
-            }
+        //if (_bIsDash == true&&dashTime<=dashDuration)
+        //{
+        //    dashTime += Time.deltaTime;
+        //    playerController.Move(directionXOZ * dashTime * dashSpeed);
+        //    if (dashTime > dashDuration)
+        //    {
+        //        _bIsDash = false;
+        //        dashTime = 0f;
+        //    }
             
-        }
+        //}
     }
-    public void Dash(CharacterController playerController)
-    {
-        _bIsDash = true;
-        //Vector3 i = new Vector3(10f, 0f, 10f);
-        //playerController.Move(i);
-        Debug.Log("dash");
+    //public void Dash(CharacterController playerController)
+    //{
+    //    _bIsDash = true;
+    //    //Vector3 i = new Vector3(10f, 0f, 10f);
+    //    //playerController.Move(i);
+    //    Debug.Log("dash");
+    //    Debug.Log(playerController.enabled);
 
 
 
 
-
-        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
-        directionXOZ = playerController.transform.forward;// forward 指向物体当前的前方
+    //    directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+    //    directionXOZ = playerController.transform.forward;// forward 指向物体当前的前方
        
         
        
 
 
-    }
-    public void clickDash()
-    {
-        _bIsDash = true;
-    }
+    //}
+    //public void clickDash()
+    //{
+    //    _bIsDash = true;
+    //}
 }

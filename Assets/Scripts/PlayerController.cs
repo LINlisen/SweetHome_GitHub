@@ -22,10 +22,17 @@ public class PlayerController : MonoBehaviour
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
 
-    CharacterController playerController;
+    private bool _bIsDash;
+    private float dashTime;
+    private Vector3 directionXOZ;
+    public float dashDuration;// 控制冲刺时间
+    public float dashSpeed;// 冲刺速度
+    // Start is called before the first frame update
+
+    public CharacterController playerController;
     Rigidbody rb;
 	PhotonView PV;
-
+ 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        _bIsDash = false;
+        Debug.Log(playerController.name);
         if (PV.IsMine)
         {
 			EquipItem(0); 
@@ -76,25 +85,39 @@ public class PlayerController : MonoBehaviour
 				break;
             }
         }
-	}
+      
+    }
+    public void Dash()
+    {
+        _bIsDash = true;
+        //Vector3 i = new Vector3(10f, 0f, 10f);
+        //playerController.Move(i);
+        Debug.Log("dash");
+        Debug.Log(playerController.name);
+        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+        directionXOZ = playerController.transform.forward;// forward 指向物体当前的前方
+    }
+    //public void clickDash()
+    //{
+    //    _bIsDash = true;
+    //}
+    //void Move()
+    //{
 
-	//void Move()
-	//{
+    //	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-	//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+    //	moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
+    //}
 
-	//	moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
-	//}
+    //   void Look()
+    //   {
+    //	transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
 
- //   void Look()
- //   {
-	//	transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+    //	verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+    //	verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
-	//	verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-	//	verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
-
-	//	camerHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
-	//}
+    //	camerHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+    //}
     private void PlayerMovement(float horizontal, float vertical)
     {
         //bool grounded = controller.isGrounded;
@@ -155,6 +178,18 @@ public class PlayerController : MonoBehaviour
 		//playerController.MovePosition(playerController.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
         Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
         PlayerMovement(move.x, move.y);
+        /*Dash*/
+        if (_bIsDash == true && dashTime <= dashDuration)
+        {
+            dashTime += Time.deltaTime;
+            playerController.Move(directionXOZ * dashTime * dashSpeed);
+            if (dashTime > dashDuration)
+            {
+                _bIsDash = false;
+                dashTime = 0f;
+            }
+
+        }
     }
     float rotate = 0;
 
@@ -222,6 +257,7 @@ public class PlayerController : MonoBehaviour
         /*PotionGet*/
         if (other.gameObject.name == "Potion(Clone)")
         {
+            GameObject.Find("TimeController").SendMessage("AddPotions");
             Destroy(other.gameObject);
             Debug.Log("get");
         }

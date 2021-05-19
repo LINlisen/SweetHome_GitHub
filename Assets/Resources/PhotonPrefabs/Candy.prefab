@@ -128,7 +128,7 @@ CharacterController:
   m_Height: 10
   m_Radius: 7
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.35
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -154,22 +154,9 @@ MonoBehaviour:
   RedDoor: {fileID: 1323162390903397704, guid: 5a63f76009c9acb42b7953abc7afd819, type: 3}
   BlueDoor: {fileID: 7343264242423041474, guid: 4175929ea54ca8243bce5a6f106431ad,
     type: 3}
---- !u!114 &1422723163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6838190113520942213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  dashDuration: 2
+  dashSpeed: 1
+  playerController: {fileID: 1422723166}
 --- !u!114 &1422723162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +180,22 @@ MonoBehaviour:
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1422723163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838190113520942213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &5919779934411014612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -298,7 +301,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0dde8dd824d8d0e418fc75c42801bed6,
         type: 3}
       propertyPath: m_Name
-      value: Candy Variant
+      value: Candy
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0dde8dd824d8d0e418fc75c42801bed6,
         type: 3}
