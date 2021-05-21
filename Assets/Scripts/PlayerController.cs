@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveAmount;
 
     private bool _bIsDash;
-    private float dashTime;
+    private float dashTime=0;
     private Vector3 directionXOZ;
     public float dashDuration;// 控制冲刺时间
     public float dashSpeed;// 冲刺速度
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(playerController.name);
         if (PV.IsMine)
         {
-			EquipItem(0); 
+			//EquipItem(0); 
         }
         else
         {
@@ -55,7 +55,18 @@ public class PlayerController : MonoBehaviour
             Destroy(rb);
         }
     }
-
+    public void Dash()
+    {
+        _bIsDash = true;
+        //Vector3 i = new Vector3(10f, 0f, 10f);
+        //playerController.Move(i);
+        Debug.Log("dash");
+        Debug.Log(_bIsDash);
+        Debug.Log(dashTime);
+        Debug.Log(dashDuration);
+        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+        directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -77,26 +88,33 @@ public class PlayerController : MonoBehaviour
         //Move();
         Vector2 look = TCKInput.GetAxis("Touchpad");
         PlayerRotation(look.x, look.y);
-        for (int i = 0; i < items.Length; i++)
+    //    for (int i = 0; i < items.Length; i++)
+    //    {
+    //        if (Input.GetKeyDown((i + 1).ToString()))
+    //        {
+				//EquipItem(i);
+				//break;
+    //        }
+    //    }
+        if (_bIsDash)
         {
-            if (Input.GetKeyDown((i + 1).ToString()))
+            if (dashTime <= dashDuration)
             {
-				EquipItem(i);
-				break;
+                dashTime += Time.deltaTime;
+                Debug.Log(directionXOZ);
+                Debug.Log(dashTime);
+                Debug.Log(dashSpeed);
+                playerController.Move(directionXOZ * dashTime * dashSpeed);
+            }
+            else
+            {
+                _bIsDash = false;
+                dashTime = 0f;
             }
         }
-      
+    
     }
-    public void Dash()
-    {
-        _bIsDash = true;
-        //Vector3 i = new Vector3(10f, 0f, 10f);
-        //playerController.Move(i);
-        Debug.Log("dash");
-        Debug.Log(playerController.name);
-        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
-        directionXOZ = playerController.transform.forward;// forward 指向物体当前的前方
-    }
+
     //public void clickDash()
     //{
     //    _bIsDash = true;
@@ -147,23 +165,23 @@ public class PlayerController : MonoBehaviour
         camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
     }
 
-    void EquipItem(int _index)
-    {
+    //void EquipItem(int _index)
+    //{
 
-        if (_index == previousItemIndex)
-            return;
+    //    if (_index == previousItemIndex)
+    //        return;
 
-        itemIndex = _index;
+    //    itemIndex = _index;
 
-        items[itemIndex].itemGameObject.SetActive(true);
+    //    items[itemIndex].itemGameObject.SetActive(true);
 
-        if (previousItemIndex != -1)
-        {
-            items[previousItemIndex].itemGameObject.SetActive(false);
-        }
+    //    if (previousItemIndex != -1)
+    //    {
+    //        items[previousItemIndex].itemGameObject.SetActive(false);
+    //    }
 
-        previousItemIndex = itemIndex;
-    }
+    //    previousItemIndex = itemIndex;
+    //}
 
 
     public void SetGroundedState(bool _grounded)
@@ -179,17 +197,7 @@ public class PlayerController : MonoBehaviour
         Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
         PlayerMovement(move.x, move.y);
         /*Dash*/
-        if (_bIsDash == true && dashTime <= dashDuration)
-        {
-            dashTime += Time.deltaTime;
-            playerController.Move(directionXOZ * dashTime * dashSpeed);
-            if (dashTime > dashDuration)
-            {
-                _bIsDash = false;
-                dashTime = 0f;
-            }
-
-        }
+        
     }
     float rotate = 0;
 
@@ -264,3 +272,5 @@ public class PlayerController : MonoBehaviour
 
     }
 }
+
+
