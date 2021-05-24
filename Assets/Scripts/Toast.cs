@@ -21,7 +21,7 @@ public class Toast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(countTime);
+        //Debug.Log(countTime);
         if (countTime < DurationTime)
         {
             countTime += Time.deltaTime;
@@ -35,12 +35,12 @@ public class Toast : MonoBehaviour
                 case 1:
                     LT.SetActive(true);
                     RT.SetActive(false);
-                    Debug.Log(1);
+                   // Debug.Log(1);
                     break;
                 case 2:
                     RT.SetActive(true);
                     LT.SetActive(false);
-                    Debug.Log(2);
+                   // Debug.Log(2);
                     break;
                 default:
                     break;
@@ -50,12 +50,12 @@ public class Toast : MonoBehaviour
                 case 3:
                     LD.SetActive(true);
                     RD.SetActive(false);
-                    Debug.Log(3);
+                   // Debug.Log(3);
                     break;
                 case 4:
                     RD.SetActive(true);
                     LD.SetActive(false);
-                    Debug.Log(4);
+                   // Debug.Log(4);
                     break;
                 default:
                     break;

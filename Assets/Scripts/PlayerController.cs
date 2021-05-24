@@ -266,8 +266,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "Potion(Clone)")
         {
             GameObject.Find("TimeController").SendMessage("AddPotions");
-            Destroy(other.gameObject);
-            Debug.Log("get");
+            other.GetComponent<RaiseEvent>().getPotion();
+            //Destroy(other.gameObject);
+            //Debug.Log("get");
         }
 
     }

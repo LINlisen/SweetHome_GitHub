@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Instantiate_Obj : MonoBehaviour
+using System.IO;
+using Photon.Pun;
+public class Instantiate_Obj : MonoBehaviourPunCallbacks
 {
-    public GameObject[] Potions;
+    //public GameObject[] Potions;
     public Transform[] Points;
     public float Ins_Time = 1;
     // Start is called before the first frame update
@@ -14,7 +15,7 @@ public class Instantiate_Obj : MonoBehaviour
 
         //int Random_Points = Random.Range(0, Points.Length);
 
-        Instantiate(Potions[0], Points[size].transform.position, Points[size].transform.rotation);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), Points[size].transform.position, Points[size].transform.rotation);
     }
     void Start()
     {
