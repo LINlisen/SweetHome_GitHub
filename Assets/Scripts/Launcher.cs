@@ -5,6 +5,8 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Linq;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Photon.Pun.UtilityScripts;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -17,6 +19,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Transform roomListContent;
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] Transform playerListContent;
+    [SerializeField] Transform BlueListContent;
+    [SerializeField] Transform RedListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
 
@@ -60,17 +64,33 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         MenuManager.Instance.OpenMenu("room");
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-
+        Hashtable hash = new Hashtable();
+        hash.Add("WhichTeam", 0);
         Player[] players = PhotonNetwork.PlayerList;
 
-        foreach (Transform child in playerListContent)
+        foreach (Transform child in BlueListContent)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in RedListContent)
         {
             Destroy(child.gameObject);
         }
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
-            Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            if (i % 2 != 0)
+            {
+                Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+                hash["WhichTeam"] = 1; //紅隊為1
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            }
+            else
+            {
+                Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+                hash["WhichTeam"] = 0; //藍隊為0
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            }
         }
 
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
@@ -109,6 +129,34 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu("title");
     }
 
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        foreach (Transform child in BlueListContent)
+        {
+            Destroy(child.gameObject);
+
+        }
+        foreach (Transform child in RedListContent)
+        {
+            Destroy(child.gameObject);
+
+        }
+        for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
+        {
+            Hashtable team = players[i].CustomProperties;
+            if ((int)team["WhichTeam"] == 1)
+            {
+                Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            }
+            else if ((int)team["WhichTeam"] == 0)
+            {
+                Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            }
+        }
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach(Transform trans in roomListContent)
@@ -125,6 +173,38 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+        Hashtable hash = new Hashtable();
+        if (PhotonNetwork.PlayerList.Count() % 2 == 0)
+        {
+            Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+            hash["WhichTeam"] = 1;
+            newPlayer.SetCustomProperties(hash);
+        }
+        else
+        {
+            Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+            hash["WhichTeam"] = 0;
+            newPlayer.SetCustomProperties(hash);
+
+        }
+    }
+    public void SwitchToBlue(int team)
+    {
+
+        Player[] players = PhotonNetwork.PlayerList;
+        Hashtable hash = new Hashtable();
+        hash["WhichTeam"] = 0;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        
+
+    }
+
+    public void SwitchToRed(int team)
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+        Hashtable hash = new Hashtable();
+        hash["WhichTeam"] = 1;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
     }
 }
