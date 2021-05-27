@@ -1,68 +1,11 @@
 fileFormatVersion: 2
-guid: 3444de033db561b4b8985931c8f0c13e
+guid: 32f6d80a830a4f044b13bbfd0213055a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: 7709686125681325085
-    second: Armature|Armature.001Action
-  - first:
-      74: -7597983235715544647
-    second: Armature|Armature.001Action.001
-  - first:
-      74: 6700736005108088550
-    second: Armature|Armature.003Action
-  - first:
       74: 4781951162920444690
     second: Armature|ArmatureAction
-  - first:
-      74: 9177420585035830096
-    second: "Armature|\u67F1\u4F53.002Action"
-  - first:
-      74: -7710033580034124067
-    second: "Armature|\u67F1\u4F53.003Action"
-  - first:
-      74: 2264077025236624520
-    second: Armature.001|Armature.001Action
-  - first:
-      74: 7168995768942034378
-    second: "Armature.001|\u67F1\u4F53.002Action"
-  - first:
-      74: 2881526550648282384
-    second: "Armature.001|\u67F1\u4F53.003Action"
-  - first:
-      74: 4264612480362930771
-    second: Armature.002|Armature.001Action.001
-  - first:
-      74: -5461261015537141296
-    second: "Armature.002|\u67F1\u4F53.002Action"
-  - first:
-      74: 6742132137247494098
-    second: "Armature.002|\u67F1\u4F53.003Action"
-  - first:
-      74: 8645343760740499401
-    second: Armature.003|Armature.003Action
-  - first:
-      74: 5944971478273180336
-    second: "Armature.003|\u67F1\u4F53.002Action"
-  - first:
-      74: 103737576961687908
-    second: "Armature.003|\u67F1\u4F53.003Action"
-  - first:
-      74: -9027478188125155498
-    second: Armature.004|Armature.001Action
-  - first:
-      74: 2568742940042413891
-    second: Armature.004|Armature.001Action.001
-  - first:
-      74: -8202691109779532850
-    second: Armature.004|Armature.003Action
-  - first:
-      74: -8099397309145029390
-    second: "Armature.004|\u67F1\u4F53.002Action"
-  - first:
-      74: -4478611372750721851
-    second: "Armature.004|\u67F1\u4F53.003Action"
   externalObjects: {}
   materials:
     materialImportMode: 1
