@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
 	[SerializeField] Item[] items;
-
+    Animator playerAni;
 	int itemIndex;
 	int previousItemIndex = -1;
     public GameObject rotation_Wall;
@@ -38,7 +38,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<CharacterController>();
 		PV = GetComponent<PhotonView>();
-	}
+        playerAni = GetComponent<Animator>();
+        Debug.Log(playerAni.name);
+
+    }
 
     void Start()
     {
@@ -114,28 +117,6 @@ public class PlayerController : MonoBehaviour
         }
     
     }
-
-    //public void clickDash()
-    //{
-    //    _bIsDash = true;
-    //}
-    //void Move()
-    //{
-
-    //	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
-    //	moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * walkSpeed, ref smoothMoveVelocity, smoothTime);
-    //}
-
-    //   void Look()
-    //   {
-    //	transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
-
-    //	verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-    //	verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
-
-    //	camerHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
-    //}
     private void PlayerMovement(float horizontal, float vertical)
     {
         //bool grounded = controller.isGrounded;
@@ -195,6 +176,18 @@ public class PlayerController : MonoBehaviour
 			return;
 		//playerController.MovePosition(playerController.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
         Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
+        if (move.x != 0 || move.y != 0)
+        {
+            playerAni.SetBool("Walk",true);
+            Debug.Log(playerAni.GetBool("Walk"));
+            //Debug.Log(move.x);
+            //Debug.Log(move.y);
+        }
+        else
+        {
+            playerAni.SetBool("Walk", false);
+            //Debug.Log("not Walk");
+        }
         PlayerMovement(move.x, move.y);
         /*Dash*/
         

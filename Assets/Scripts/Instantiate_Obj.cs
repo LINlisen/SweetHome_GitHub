@@ -19,9 +19,12 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "map"), Vector3.zero, Quaternion.identity);
+        Debug.Log("map");
         for (int i = 0; i < Points.Length; i++)
         {
             Ins_objs(i);
+            
         }
     }
     
