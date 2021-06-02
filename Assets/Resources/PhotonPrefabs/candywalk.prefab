@@ -161,7 +161,7 @@ Transform:
   - {fileID: 1681449565686163290}
   - {fileID: 7948319439057840701}
   - {fileID: 6761139701694797304}
-  - {fileID: 62807686708170426}
+  - {fileID: 6865685213938620255}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 7852698553270487058}
   - component: {fileID: 8236476187724573197}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,12 +623,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3504934158776083197}
-  m_LocalRotation: {x: 0.11435628, y: 0, z: 0, w: 0.99343985}
-  m_LocalPosition: {x: -0, y: 2.85, z: -2.72}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.0808621, y: -0.70246804, z: 0.0808621, w: 0.70246804}
+  m_LocalPosition: {x: 27.200003, y: 11.100002, z: -0.19999582}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
-  m_Father: {fileID: 62807686708170426}
-  m_RootOrder: 0
+  m_Father: {fileID: 70320682233774813}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 13.133, y: 0, z: 0}
 --- !u!20 &7852698553270487058
 Camera:
@@ -641,12 +641,12 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 22, y: 25}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 8.687726
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -655,7 +655,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 110.4
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1231,37 +1231,6 @@ Transform:
   m_Father: {fileID: 8955690550590411331}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4890212366926287503
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 62807686708170426}
-  m_Layer: 0
-  m_Name: CameraHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &62807686708170426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4890212366926287503}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -17.399998, z: -0.19999981}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_Children:
-  - {fileID: 6865685213938620255}
-  m_Father: {fileID: 70320682233774813}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &4930081671406902108
 GameObject:
   m_ObjectHideFlags: 0

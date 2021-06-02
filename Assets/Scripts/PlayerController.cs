@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public GameObject BlueDoor;
     float verticalLookRotation;
     float rotation;
-    private bool isLock = true;
     bool grounded;
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
@@ -74,22 +73,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            isLock = false;
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            isLock = true;
-        }
+      
 
         if (!PV.IsMine)
 			return;
-        //      if (!isLock)
-        //      {
-        //          Look();
-        //      }
-
         //Move();
         Vector2 look = TCKInput.GetAxis("Touchpad");
         PlayerRotation(look.x, look.y);
@@ -180,14 +167,11 @@ public class PlayerController : MonoBehaviour
         Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
         if (move.x != 0 || move.y != 0)
         {
-            playerAni.SetBool("Walk",true);
-            Debug.Log(playerAni.GetBool("Walk"));
-            //Debug.Log(move.x);
-            //Debug.Log(move.y);
+            playerAni.SetFloat("Speed",5);
         }
         else
         {
-            playerAni.SetBool("Walk", false);
+            playerAni.SetFloat("Speed", 0);
             //Debug.Log("not Walk");
         }
         PlayerMovement(move.x, move.y);
