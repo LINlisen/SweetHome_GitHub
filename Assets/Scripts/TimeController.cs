@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class TimeController : MonoBehaviour
 {
     public int allSeconds;
@@ -28,8 +30,10 @@ public class TimeController : MonoBehaviour
         BlueTeam = 0;
         text_RT.text = RedTeam.ToString();
         text_BT.text = BlueTeam.ToString();
+        Hashtable time = PhotonNetwork.CurrentRoom.CustomProperties;
+        minutes = (int)time["Time"];
         StartCoroutine(Timmer()); // 呼叫協程
-
+        
     }
 
 

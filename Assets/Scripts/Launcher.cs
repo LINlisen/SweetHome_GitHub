@@ -10,7 +10,7 @@ using Photon.Pun.UtilityScripts;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-
+    int gametime = 5;
     public static Launcher Instance;
 
     [SerializeField] TMP_InputField roomNameInputField;
@@ -66,6 +66,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         Hashtable hash = new Hashtable();
         hash.Add("WhichTeam", 0);
+        Hashtable time = new Hashtable();
+        time.Add("Time", gametime);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
+        roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         Player[] players = PhotonNetwork.PlayerList;
 
         foreach (Transform child in BlueListContent)
