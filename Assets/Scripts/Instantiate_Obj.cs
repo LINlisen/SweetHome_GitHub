@@ -6,6 +6,7 @@ using Photon.Pun;
 public class Instantiate_Obj : MonoBehaviourPunCallbacks
 {
     //public GameObject[] Potions;
+    private byte[] Potions;
     public Transform[] Points;
     public float Ins_Time = 1;
     // Start is called before the first frame update
@@ -14,17 +15,15 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
         //int Random_Objects = Random.Range(0, Potions.Length);
 
         //int Random_Points = Random.Range(0, Points.Length);
+        
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), Points[size].transform.position, Points[size].transform.rotation,Potions[size]);
 
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), Points[size].transform.position, Points[size].transform.rotation);
     }
     void Start()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "map"), Vector3.zero, Quaternion.identity);
-        Debug.Log("map");
         for (int i = 0; i < Points.Length; i++)
         {
             Ins_objs(i);
-            
         }
     }
     

@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     public CharacterController playerController;
     Rigidbody rb;
 	PhotonView PV;
- 
+    /*Button*/
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
             Destroy(playerController);
             Destroy(rb);
         }
+        GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
     }
     public void Dash()
     {
@@ -130,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        playerController.Move(moveDirection * Time.fixedDeltaTime * 10.0f);
+        playerController.Move(moveDirection * Time.fixedDeltaTime * walkSpeed);
         //rb.MovePosition(moveDirection * Time.fixedDeltaTime * 10.0f);
 
 
@@ -196,65 +198,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        /*Rotation_Wall_Setting*/
-        if (other.gameObject.name == "RotationDoorR")
-        {
-            Debug.Log(other.gameObject.name);
-            rotate -= 2;
-           
-            
-            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-        }
-        if (other.gameObject.name == "RotationDoorL")
-        {
-            Debug.Log(other.gameObject.name);
-            rotate += 2;
-            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-        }
-        if (other.gameObject.name == "RotationDoor")
-        {
-            Debug.Log(other.gameObject.name);
-           
-            other.gameObject.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-        }
-        /*Color_Door_Setting*/
-        if (other.gameObject.name == "BlueDoor")//only PlayerId==odd can pass
-        {
-
-            if (this.GetComponent<PhotonView>().ViewID % 2 == 0)
-            {
-                // other.gameObject.SetActive(true);
-                
-                other.gameObject.transform.GetChild(3).gameObject.SetActive(true);
-            }
-            else
-            {
-                //other.gameObject.SetActive(false);
-                other.gameObject.transform.GetChild(3).gameObject.SetActive(false);
-            }
-        }
-        if (other.gameObject.name == "RedDoor")//only PlayerId==even can pass
-        {
-
-            if (this.GetComponent<PhotonView>().ViewID % 2 == 0)
-            {
-                //other.gameObject.SetActive(false);
-                
-                other.gameObject.transform.GetChild(3).gameObject.SetActive(false);
-            }
-            else
-            {
-                //other.gameObject.SetActive(true);
-                other.gameObject.transform.GetChild(3).gameObject.SetActive(true);
-            }
-        }
-        if (other.gameObject.name == "Cookie3_cell" || other.gameObject.name == "Cookie3_cell_001" || other.gameObject.name == "Cookie3_cell_002" || other.gameObject.name == "Cookie3_cell_003" || other.gameObject.name == "Cookie3_cell_004")
-        {
-            this.transform.position += new Vector3(0, 10f * Time.deltaTime * 50.0f, 0);
-        }
-
-        rotation_Wall.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-
         /*PotionGet*/
         if (other.gameObject.name == "Potion(Clone)")
         {
@@ -263,7 +206,21 @@ public class PlayerController : MonoBehaviour
             //Destroy(other.gameObject);
             //Debug.Log("get");
         }
-
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "toast")
+        {
+            GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "toast")
+        {
+            GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
     }
 }
 

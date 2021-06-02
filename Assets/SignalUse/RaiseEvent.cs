@@ -9,7 +9,7 @@ public class RaiseEvent : MonoBehaviourPun
 
     // Start is called before the first frame update
     private const byte GET_POTION_EVENT=0;
-   
+    private const byte TAKE_TOAST = 1;
     void Start()
     {
         
@@ -52,5 +52,9 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
         
+    }
+    public void takeToast()
+    {
+        //Vector3 takePos =
     }
 }

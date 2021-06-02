@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 842741462643251303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 9.87, z: -3.36}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 8955690550590411331}
   - {fileID: 3016138915150790665}
@@ -176,13 +176,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 10
-  m_Radius: 7
+  m_Height: 1
+  m_Radius: 10
   m_SlopeLimit: 45
-  m_StepOffset: 0.35
+  m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!114 &509066610417603531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camerHolder: {fileID: 1968711252, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
   mouseSensitivity: 10
-  walkSpeed: 8
+  walkSpeed: 12
   smoothTime: 0.15
   items: []
   rotation_Wall: {fileID: 5054885072502563742, guid: fa3e1b0a7c213484f8d56749bebc80c9,
@@ -260,7 +260,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 25d6f4fd7d05ca34297f1bfe9c1a0a6f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -624,7 +624,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3504934158776083197}
   m_LocalRotation: {x: 0.11435628, y: 0, z: 0, w: 0.99343985}
-  m_LocalPosition: {x: 0, y: 2.08, z: -2.43}
+  m_LocalPosition: {x: -0, y: 2.85, z: -2.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 62807686708170426}
