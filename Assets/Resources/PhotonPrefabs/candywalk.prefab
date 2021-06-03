@@ -205,8 +205,8 @@ MonoBehaviour:
   RedDoor: {fileID: 1323162390903397704, guid: 5a63f76009c9acb42b7953abc7afd819, type: 3}
   BlueDoor: {fileID: 7343264242423041474, guid: 4175929ea54ca8243bce5a6f106431ad,
     type: 3}
-  dashDuration: 2
-  dashSpeed: 1
+  dashDuration: 1.2
+  dashSpeed: 0.8
   playerController: {fileID: 1422723166, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
 --- !u!114 &7598413386635180409
 MonoBehaviour:

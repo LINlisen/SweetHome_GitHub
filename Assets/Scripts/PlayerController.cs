@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
 
-    private bool _bIsDash;
-    private float dashTime=0;
+    bool _bIsDash=false;
+    private float dashTime=0.0f;
     private Vector3 directionXOZ;
     public float dashDuration;// 控制冲刺时间
     public float dashSpeed;// 冲刺速度
@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _bIsDash = false;
         Debug.Log(playerController.name);
         if (PV.IsMine)
         {
@@ -62,49 +61,49 @@ public class PlayerController : MonoBehaviour
     public void Dash()
     {
         _bIsDash = true;
+        playerAni.SetBool("Dash", true);
         //Vector3 i = new Vector3(10f, 0f, 10f);
         //playerController.Move(i);
-        Debug.Log("dash");
+        Debug.Log("DASH");
         Debug.Log(_bIsDash);
-        Debug.Log(dashTime);
-        Debug.Log(dashDuration);
+        Debug.Log("DASH");
+        //Debug.Log(_bIsDash);
+        //Debug.Log(dashTime);
+        //Debug.Log(dashDuration);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
     }
     private void Update()
     {
-      
-
+        if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
+        {
+            Dash();
+        }
+        if (_bIsDash == true)
+        {
+            Debug.Log(dashTime);
+            Debug.Log(dashDuration);
+            if (dashTime <= dashDuration)
+            {
+                dashTime += Time.deltaTime;
+                //Debug.Log(directionXOZ);
+                Debug.Log("trueinside");
+                //Debug.Log(dashSpeed);
+                playerController.Move(-directionXOZ * dashTime * dashSpeed);
+            }
+            else
+            {
+                _bIsDash = false;
+                dashTime = 0.0f;
+                playerAni.SetBool("Dash", false);
+            }
+            
+        }
         if (!PV.IsMine)
 			return;
         //Move();
         Vector2 look = TCKInput.GetAxis("Touchpad");
         PlayerRotation(look.x, look.y);
-    //    for (int i = 0; i < items.Length; i++)
-    //    {
-    //        if (Input.GetKeyDown((i + 1).ToString()))
-    //        {
-				//EquipItem(i);
-				//break;
-    //        }
-    //    }
-        if (_bIsDash)
-        {
-            if (dashTime <= dashDuration)
-            {
-                dashTime += Time.deltaTime;
-                Debug.Log(directionXOZ);
-                Debug.Log(dashTime);
-                Debug.Log(dashSpeed);
-                playerController.Move(directionXOZ * dashTime * dashSpeed);
-            }
-            else
-            {
-                _bIsDash = false;
-                dashTime = 0f;
-            }
-        }
-    
     }
     private void PlayerMovement(float horizontal, float vertical)
     {
@@ -174,9 +173,11 @@ public class PlayerController : MonoBehaviour
             playerAni.SetFloat("Speed", 0);
             //Debug.Log("not Walk");
         }
+        
         PlayerMovement(move.x, move.y);
         /*Dash*/
-        
+     
+  
     }
     float rotate = 0;
 
