@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TreasureNormal
+  - SlowDowner
+  - SpeedBooster
+  - AnimRSeesaw
+  - AnimLSeesaw
+  - TreasureDeath
   layers:
   - Default
   - TransparentFX

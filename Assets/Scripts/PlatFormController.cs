@@ -102,6 +102,7 @@ public class PlatFormController : MonoBehaviour
 
     private Vector3 GetWaypoint()
     {
+        //Debug.Log(waypoints[currentPointIndex]);
         return (waypoints[currentPointIndex]);
     }
 

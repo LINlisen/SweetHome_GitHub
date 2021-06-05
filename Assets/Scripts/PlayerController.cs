@@ -31,8 +31,9 @@ public class PlayerController : MonoBehaviour
     public CharacterController playerController;
     Rigidbody rb;
 	PhotonView PV;
+
     /*Organ*/
-    [SerializeField] private GameObject SeesawSet;
+    //[SerializeField] private GameObject SeesawSet;
 
     //[SerializeField] private float Speed = 5;
     //boost speed var
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     //treasure
     [SerializeField] private GameObject treasure;
+    
 
     void Awake()
     {
@@ -59,6 +61,9 @@ public class PlayerController : MonoBehaviour
 		PV = GetComponent<PhotonView>();
         playerAni = GetComponent<Animator>();
         Debug.Log(playerAni.name);
+
+        //organ-treasure animate
+        //boxAnim = treasure.GetComponent<Animator>();
 
     }
 
@@ -131,28 +136,30 @@ public class PlayerController : MonoBehaviour
         //Move();
         Vector2 look = TCKInput.GetAxis("Touchpad");
         PlayerRotation(look.x, look.y);
+
+
         /*Organ*/
-        Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
-        if (playerOnRightSeesaw == true)
-        {
-            if (SeesawSet.transform.localRotation.eulerAngles.z > maxAngle)
-            {
+        //Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
+        //if (playerOnRightSeesaw == true)
+        //{
+        //    if (SeesawSet.transform.localRotation.eulerAngles.z > maxAngle)
+        //    {
                 //SeesawSet.transform.RotateAround(SeesawSet.transform.position, SeesawSet.transform.parent.forward, angle*Time.deltaTime);
 
                 //SeesawSet.transform.Rotate(Vector3.forward, angle * Time.deltaTime);
-            }
-        }
-        if (playerOnLeftSeesaw == true)
-        {
-            SeesawSet.transform.Rotate(Vector3.forward, -angle * Time.deltaTime);
-            if (SeesawSet.transform.localRotation.eulerAngles.z == minAngle)
-            {
-                playerOnLeftSeesaw = false;
+        //    }
+        //}
+        //if (playerOnLeftSeesaw == true)
+        //{
+        //    SeesawSet.transform.Rotate(Vector3.forward, -angle * Time.deltaTime);
+        //    if (SeesawSet.transform.localRotation.eulerAngles.z == minAngle)
+        //    {
+        //        playerOnLeftSeesaw = false;
                 //SeesawSet.transform.RotateAround(SeesawSet.transform.position, SeesawSet.transform.parent.forward, angle*Time.deltaTime);
 
 
-            }
-        }
+        //    }
+        //}
     }
     private void PlayerMovement(float horizontal, float vertical)
     {
@@ -242,12 +249,15 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
     private void OnTriggerEnter(Collider other)
     {
+        //toast
         if (other.gameObject.name == "toast")
         {
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
+
         /*Organ*/
         //booster
         if (other.CompareTag("SpeedBooster"))
@@ -262,18 +272,19 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //seesaw
-        Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
-        if (other.CompareTag("RSeesaw"))
-        {
-            Debug.Log("touched");
-            playerOnLeftSeesaw = true;
-        }
-        if (other.CompareTag("LSeesaw"))
-        {
-            Debug.Log("l");
-            playerOnLeftSeesaw = true;
-        }
+        //seesaw set not used
+        //Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
+        //if (other.CompareTag("RSeesaw"))
+        //{
+           
+        //    playerOnLeftSeesaw = true;
+        //}
+        //if (other.CompareTag("LSeesaw"))
+        //{
+        //    Debug.Log("l");
+        //    playerOnLeftSeesaw = true;
+        //}
+
 
         //animated seesaw
         if (other.tag == "AnimRSeesaw")
@@ -281,6 +292,7 @@ public class PlayerController : MonoBehaviour
 
             if (animated == true)
             {
+                Debug.Log("touched");
                 Animator anim = other.GetComponentInParent<Animator>();
                 anim.SetTrigger("moveOC2");
                 animated = false;
@@ -294,32 +306,43 @@ public class PlayerController : MonoBehaviour
                 anim.SetTrigger("moveOC");
                 animated = true;
             }
-
         }
+
         //treasure
         if (other.tag == "TreasureNormal")
         {
+            
             Animator boxAnim = treasure.GetComponent<Animator>();
             boxAnim.SetBool("openbox", true);
         }
+        //easter
+        if (other.tag == "TreasureDeath")
+        {
+            Debug.Log("Die");
+            Animator diebox = other.GetComponentInParent<Animator>();
+            diebox.SetBool("openbox", true);
+        }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "toast")
         {
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
+
         /*Organ*/
-        //seesaw
-        if (other.CompareTag("RSeesaw"))
-        {
-            playerOnLeftSeesaw = false;
-        }
-        if (other.CompareTag("LSeesaw"))
-        {
-            playerOnLeftSeesaw = false;
-        }
+        //seesaw set
+        //if (other.CompareTag("RSeesaw"))
+        //{
+        //    playerOnLeftSeesaw = false;
+        //}
+        //if (other.CompareTag("LSeesaw"))
+        //{
+        //    playerOnLeftSeesaw = false;
+        //}
     }
+
     /*Organ*/
     IEnumerator BoostDuration()
     {
