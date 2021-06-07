@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 8772907112904684575}
   m_Layer: 0
   m_Name: candywalk
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ CharacterController:
   m_Height: 1
   m_Radius: 10
   m_SlopeLimit: 45
-  m_StepOffset: 0.7
+  m_StepOffset: 1.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 4, z: 0}
@@ -208,6 +208,13 @@ MonoBehaviour:
   dashDuration: 1.2
   dashSpeed: 0.8
   playerController: {fileID: 1422723166, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
+  SeesawSet: {fileID: 0}
+  boostedSpeed: 22
+  speedCooldown: 2
+  maxAngle: 350
+  minAngle: 15
+  treasure: {fileID: 5541628849186769823, guid: c075b11f3e08ade439ef2c0006cbe41b,
+    type: 3}
 --- !u!114 &7598413386635180409
 MonoBehaviour:
   m_ObjectHideFlags: 0
