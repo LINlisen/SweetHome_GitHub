@@ -106,7 +106,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968711252}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0.022876844, y: 0.7067366, z: 0.022876844, w: -0.7067366}
   m_LocalPosition: {x: 0, y: -17.4, z: -0.2}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
@@ -157,12 +157,6 @@ MonoBehaviour:
   dashDuration: 2
   dashSpeed: 1
   playerController: {fileID: 1422723166}
-  SeesawSet: {fileID: 0}
-  boostedSpeed: 0
-  speedCooldown: 0
-  maxAngle: 0
-  minAngle: 0
-  treasure: {fileID: 0}
 --- !u!114 &1422723162
 MonoBehaviour:
   m_ObjectHideFlags: 0
