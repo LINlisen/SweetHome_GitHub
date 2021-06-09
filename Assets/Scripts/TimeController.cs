@@ -17,8 +17,8 @@ public class TimeController : MonoBehaviour
     [Header("設定 UI 元素")]
 
     public Text text_Timmer; // 指定倒數計時的文字
-    public Text text_RT;
-    public Text text_BT;
+    //public Text text_RT;
+    //public Text text_BT;
 
     public GameObject gameOver; // 指定顯示 GameOver 物件
     private int RedTeam;
@@ -28,8 +28,8 @@ public class TimeController : MonoBehaviour
     {
         RedTeam = 0;
         BlueTeam = 0;
-        text_RT.text = RedTeam.ToString();
-        text_BT.text = BlueTeam.ToString();
+        //text_RT.text = RedTeam.ToString();
+        //text_BT.text = BlueTeam.ToString();
         Hashtable time = new Hashtable();
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
@@ -47,13 +47,13 @@ public class TimeController : MonoBehaviour
     }
 
 
-    void AddPotions()
-    {
-        RedTeam += 1;
-        BlueTeam += 1;
-        text_RT.text = RedTeam.ToString();
-        text_BT.text = BlueTeam.ToString();
-    }
+    //void AddPotions()
+    //{
+    //    RedTeam += 1;
+    //    BlueTeam += 1;
+    //    text_RT.text = RedTeam.ToString();
+    //    text_BT.text = BlueTeam.ToString();
+    //}
     IEnumerator Timmer(int currenttime)
     {
 

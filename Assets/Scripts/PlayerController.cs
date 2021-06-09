@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TouchControlsKit;
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] GameObject camerHolder;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public CharacterController playerController;
     Rigidbody rb;
 	PhotonView PV;
-
+    GameObject UpInformation;
     /*Organ*/
     //[SerializeField] private GameObject SeesawSet;
 
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<CharacterController>();
 		PV = GetComponent<PhotonView>();
+        UpInformation = GameObject.Find("UpInformationCanvas");
         playerAni = GetComponent<Animator>();
         Debug.Log(playerAni.name);
 
@@ -239,14 +240,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        /*PotionGet*/
-        if (other.gameObject.name == "Potion(Clone)")
-        {
-            GameObject.Find("TimeController").SendMessage("AddPotions");
-            other.GetComponent<RaiseEvent>().getPotion();
-            //Destroy(other.gameObject);
-            //Debug.Log("get");
-        }
+        
         
     }
 
@@ -321,6 +315,18 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Die");
             Animator diebox = other.GetComponentInParent<Animator>();
             diebox.SetBool("openbox", true);
+        }
+
+        /*PotionGet*/
+        if (other.gameObject.tag == "Potion")
+        {
+            Debug.Log("take"+other.gameObject.name);
+            Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
+            PhotonView photonView = PhotonView.Get(UpInformation);
+            photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
+            other.GetComponent<RaiseEvent>().getPotion(other.gameObject);
+            
+
         }
     }
 

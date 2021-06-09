@@ -4,12 +4,14 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+
 public class RaiseEvent : MonoBehaviourPun
 {
 
     // Start is called before the first frame update
     private const byte GET_POTION_EVENT=0;
     private const byte TAKE_TOAST = 1;
+    GameObject[] TakedPotion;
     void Start()
     {
         
@@ -37,21 +39,25 @@ public class RaiseEvent : MonoBehaviourPun
             Debug.Log("NetWork");
             object[] datas = (object[])obj.CustomData;
             bool b = (bool)datas[0];
-            this.gameObject.SetActive(b);
+            Debug.Log(TakedPotion[0].name);
+
+            TakedPotion[0].gameObject.SetActive(b);
         }
     }
 
-    public void getPotion()
+    public void getPotion(GameObject takedPotion)
     {
         
         bool b = false;
         
         //Debug.Log(this.gameObject.name);
         //potion.SetActive(b);
-        object[] datas = new object[] { b };
+        object[] datas = new object[] {b };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-        
+        TakedPotion = new GameObject[1];
+        TakedPotion[0] = takedPotion;
+
     }
     public void takeToast()
     {

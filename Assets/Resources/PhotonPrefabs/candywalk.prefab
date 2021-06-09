@@ -208,7 +208,6 @@ MonoBehaviour:
   dashDuration: 1.2
   dashSpeed: 0.8
   playerController: {fileID: 1422723166, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
-  SeesawSet: {fileID: 0}
   boostedSpeed: 22
   speedCooldown: 2
   maxAngle: 350
