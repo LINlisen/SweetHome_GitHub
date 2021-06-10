@@ -11,6 +11,8 @@ public class RaiseEvent : MonoBehaviourPun
     // Start is called before the first frame update
     private const byte GET_POTION_EVENT=0;
     private const byte TAKE_TOAST = 1;
+    private const byte SEE_SAW_RIGHT = 2;
+    private const byte SEE_SAW_LEFT = 3;
 
     void Start()
     {
@@ -42,8 +44,22 @@ public class RaiseEvent : MonoBehaviourPun
             string PotionName = (string)datas[1];
             Debug.Log("NetWork"+ PotionName);
             GameObject.Find(PotionName).SetActive(b);
-            
-
+        }
+        if(obj.Code==SEE_SAW_RIGHT)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string ObjTag = (string)datas[0];
+            bool ObjState = (bool)datas[1];
+            Animator anim =GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            anim.SetTrigger("moveOC2");
+        }
+        if (obj.Code == SEE_SAW_LEFT)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string ObjTag = (string)datas[0];
+            bool ObjState = (bool)datas[1];
+            Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            anim.SetTrigger("moveOC");
         }
     }
 
@@ -65,5 +81,21 @@ public class RaiseEvent : MonoBehaviourPun
     public void takeToast()
     {
         //Vector3 takePos =
+    }
+    public void SeeSawTriggerR(string tag,bool state)
+    {
+        string ObjTag = tag;
+        bool ObjState = state;
+        object[] datas = new object[] { ObjTag, ObjState };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SEE_SAW_RIGHT, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void SeeSawTriggerL(string tag, bool state)
+    {
+        string ObjTag = tag;
+        bool ObjState = state;
+        object[] datas = new object[] { ObjTag, ObjState };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SEE_SAW_LEFT, datas, raiseEventOptions, SendOptions.SendReliable);
     }
 }

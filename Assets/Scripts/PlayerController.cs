@@ -292,6 +292,7 @@ public class PlayerController : MonoBehaviour
                 Animator anim = other.GetComponentInParent<Animator>();
                 anim.SetTrigger("moveOC2");
                 animated = false;
+                other.GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
             }
         }
         if (other.tag == "AnimLSeesaw")
@@ -301,6 +302,7 @@ public class PlayerController : MonoBehaviour
                 Animator anim = other.GetComponentInParent<Animator>();
                 anim.SetTrigger("moveOC");
                 animated = true;
+                other.GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
             }
         }
 
@@ -324,7 +326,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("take"+other.gameObject.name);
             Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
-            int childnum = other.gameObject.transform.parent.GetSiblingIndex();
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
