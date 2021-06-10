@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     public float maxAngle;
     public float minAngle;
 
-    private bool animated;//trueR falseL can be trigger
+   
 
     //treasure
     [SerializeField] private GameObject treasure;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         playerOnLeftSeesaw = false;
         playerOnRightSeesaw = false;
 
-        animated = true;
+        
         
     }
     public void Dash()
@@ -248,6 +248,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Hashtable data = PhotonNetwork.CurrentRoom.CustomProperties;
+        
         //toast
         if (other.gameObject.name == "toast")
         {
@@ -286,23 +288,20 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "AnimRSeesaw")
         {
 
-            if (animated == true)
+            if ((bool)data["seesawbool"] == true)
             {
-                Debug.Log("touched");
-                Animator anim = other.GetComponentInParent<Animator>();
-                anim.SetTrigger("moveOC2");
-                animated = false;
-                Debug.Log(other.name);
+                data["seesawbool"] = false;
+                PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
             }
         }
         if (other.tag == "AnimLSeesaw")
         {
-            if (animated == false)
+            if ((bool)data["seesawbool"] == false)
             {
-                Animator anim = other.GetComponentInParent<Animator>();
-                anim.SetTrigger("moveOC");
-                animated = true;
+
+                data["seesawbool"] = true;
+                PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
             }
         }
