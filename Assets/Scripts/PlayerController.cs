@@ -97,14 +97,6 @@ public class PlayerController : MonoBehaviour
     {
         _bIsDash = true;
         playerAni.SetBool("Dash", true);
-        //Vector3 i = new Vector3(10f, 0f, 10f);
-        //playerController.Move(i);
-        Debug.Log("DASH");
-        Debug.Log(_bIsDash);
-        Debug.Log("DASH");
-        //Debug.Log(_bIsDash);
-        //Debug.Log(dashTime);
-        //Debug.Log(dashDuration);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
     }
@@ -141,44 +133,22 @@ public class PlayerController : MonoBehaviour
         PlayerRotation(look.x, look.y);
 
 
-        /*Organ*/
-        //Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
-        //if (playerOnRightSeesaw == true)
-        //{
-        //    if (SeesawSet.transform.localRotation.eulerAngles.z > maxAngle)
-        //    {
-                //SeesawSet.transform.RotateAround(SeesawSet.transform.position, SeesawSet.transform.parent.forward, angle*Time.deltaTime);
-
-                //SeesawSet.transform.Rotate(Vector3.forward, angle * Time.deltaTime);
-        //    }
-        //}
-        //if (playerOnLeftSeesaw == true)
-        //{
-        //    SeesawSet.transform.Rotate(Vector3.forward, -angle * Time.deltaTime);
-        //    if (SeesawSet.transform.localRotation.eulerAngles.z == minAngle)
-        //    {
-        //        playerOnLeftSeesaw = false;
-                //SeesawSet.transform.RotateAround(SeesawSet.transform.position, SeesawSet.transform.parent.forward, angle*Time.deltaTime);
-
-
-        //    }
-        //}
+      
     }
     private void PlayerMovement(float horizontal, float vertical)
     {
-        //bool grounded = controller.isGrounded;
+      
 
         Vector3 moveDirection = playerController.transform.forward * horizontal;
         moveDirection -= playerController.transform.right * vertical ;
 
-        //Vector3 moveDirection = rb.transform.forward * vertical;
-        //moveDirection += rb.transform.right * horizontal;
+       
         moveDirection.y = -1.0f;
 
 
 
         playerController.Move(moveDirection * Time.fixedDeltaTime * walkSpeed);
-        //rb.MovePosition(moveDirection * Time.fixedDeltaTime * 10.0f);
+      
 
 
     }
