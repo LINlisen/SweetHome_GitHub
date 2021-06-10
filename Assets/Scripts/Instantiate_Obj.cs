@@ -28,9 +28,10 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
             potions = new GameObject[Points.Length];
             potions[i]=Ins_objs(i);
             Debug.Log(potions[i].name);
+            
             potions[i].name = "potion" + i.ToString();
             Debug.Log(potions[i].name);
-            Debug.Log(potions[i].tag);
+            Debug.Log("Father" + potions[i].transform.parent);
         }
     }
     

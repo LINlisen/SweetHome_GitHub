@@ -11,10 +11,10 @@ public class RaiseEvent : MonoBehaviourPun
     // Start is called before the first frame update
     private const byte GET_POTION_EVENT=0;
     private const byte TAKE_TOAST = 1;
-    GameObject[] TakedPotion;
+
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -36,16 +36,16 @@ public class RaiseEvent : MonoBehaviourPun
     {
         if(obj.Code == GET_POTION_EVENT)
         {
-            Debug.Log("NetWork");
+         
             object[] datas = (object[])obj.CustomData;
             bool b = (bool)datas[0];
-            Debug.Log(TakedPotion[0].name);
+            Debug.Log("NetWork"+ this.gameObject.name);
+            this.gameObject.SetActive(b);
 
-            TakedPotion[0].gameObject.SetActive(b);
         }
     }
 
-    public void getPotion(GameObject takedPotion)
+    public void getPotion()
     {
         
         bool b = false;
@@ -55,8 +55,9 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] {b };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-        TakedPotion = new GameObject[1];
-        TakedPotion[0] = takedPotion;
+       
+
+
 
     }
     public void takeToast()

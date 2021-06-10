@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         playerController = GetComponent<CharacterController>();
 		PV = GetComponent<PhotonView>();
         UpInformation = GameObject.Find("UpInformationCanvas");
+        treasure = GameObject.Find("Wooden_Chest");
         playerAni = GetComponent<Animator>();
         Debug.Log(playerAni.name);
 
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
         playerOnRightSeesaw = false;
 
         animated = true;
+        
     }
     public void Dash()
     {
@@ -318,13 +320,13 @@ public class PlayerController : MonoBehaviour
         }
 
         /*PotionGet*/
-        if (other.gameObject.tag == "Potion")
+        if (other.gameObject.name == "Potion")
         {
             Debug.Log("take"+other.gameObject.name);
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
-            other.GetComponent<RaiseEvent>().getPotion(other.gameObject);
+            other.GetComponent<RaiseEvent>().getPotion();
             
 
         }

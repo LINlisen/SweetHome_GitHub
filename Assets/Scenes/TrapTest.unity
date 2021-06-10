@@ -7941,7 +7941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719601426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.0700002, y: -0.13, z: -2.9091187}
+  m_LocalPosition: {x: 3.0700002, y: -0.13, z: 22.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2002388462}
@@ -9119,7 +9119,7 @@ MonoBehaviour:
   Points:
   - {fileID: 1858770836}
   - {fileID: 631464019}
-  - {fileID: 1858770836}
+  - {fileID: 1719601427}
   Ins_Time: 1
 --- !u!4 &1900119556
 Transform:
