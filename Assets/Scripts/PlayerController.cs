@@ -292,7 +292,8 @@ public class PlayerController : MonoBehaviour
                 Animator anim = other.GetComponentInParent<Animator>();
                 anim.SetTrigger("moveOC2");
                 animated = false;
-                other.GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
+                Debug.Log(other.name);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
             }
         }
         if (other.tag == "AnimLSeesaw")
@@ -302,7 +303,7 @@ public class PlayerController : MonoBehaviour
                 Animator anim = other.GetComponentInParent<Animator>();
                 anim.SetTrigger("moveOC");
                 animated = true;
-                other.GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
             }
         }
 

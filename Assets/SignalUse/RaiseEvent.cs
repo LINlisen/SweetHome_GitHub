@@ -51,6 +51,7 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim =GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC2");
         }
         if (obj.Code == SEE_SAW_LEFT)
@@ -59,6 +60,7 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC");
         }
     }
