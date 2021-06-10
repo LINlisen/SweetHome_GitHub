@@ -9,6 +9,7 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
     private byte[] Potions;
     public Transform[] Points;
     public float Ins_Time = 1;
+    GameObject PotionList;
     GameObject[]  potions;
     // Start is called before the first frame update
     GameObject Ins_objs(int size)
@@ -22,6 +23,7 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        PotionList = GameObject.Find("PotionList");
         for (int i = 0; i < Points.Length; i++)
         {
             Debug.Log("create");
@@ -30,8 +32,9 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
             Debug.Log(potions[i].name);
             
             potions[i].name = "potion" + i.ToString();
+            potions[i].transform.parent = PotionList.transform;
             Debug.Log(potions[i].name);
-            Debug.Log("Father" + potions[i].transform.parent);
+            Debug.Log("Father" + potions[i].transform.parent.gameObject.name);
         }
     }
     

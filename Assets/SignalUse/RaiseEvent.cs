@@ -39,20 +39,22 @@ public class RaiseEvent : MonoBehaviourPun
          
             object[] datas = (object[])obj.CustomData;
             bool b = (bool)datas[0];
-            Debug.Log("NetWork"+ this.gameObject.name);
-            this.gameObject.SetActive(b);
+            string PotionName = (string)datas[1];
+            Debug.Log("NetWork"+ PotionName);
+            GameObject.Find(PotionName).SetActive(b);
+            
 
         }
     }
 
-    public void getPotion()
+    public void getPotion(string name)
     {
         
         bool b = false;
-        
+        string PotionName = name;
         //Debug.Log(this.gameObject.name);
         //potion.SetActive(b);
-        object[] datas = new object[] {b };
+        object[] datas = new object[] {b, PotionName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
        

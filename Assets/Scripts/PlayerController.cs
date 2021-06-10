@@ -320,13 +320,15 @@ public class PlayerController : MonoBehaviour
         }
 
         /*PotionGet*/
-        if (other.gameObject.name == "Potion")
+        if (other.gameObject.transform.parent.name == "PotionList")
         {
             Debug.Log("take"+other.gameObject.name);
+            Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
+            int childnum = other.gameObject.transform.parent.GetSiblingIndex();
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
-            other.GetComponent<RaiseEvent>().getPotion();
+            other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
             
 
         }
