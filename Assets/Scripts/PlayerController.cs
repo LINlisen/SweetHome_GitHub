@@ -290,6 +290,7 @@ public class PlayerController : MonoBehaviour
 
             if ((bool)data["seesawbool"] == true)
             {
+                Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = false;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
@@ -299,7 +300,7 @@ public class PlayerController : MonoBehaviour
         {
             if ((bool)data["seesawbool"] == false)
             {
-
+                Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = true;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);

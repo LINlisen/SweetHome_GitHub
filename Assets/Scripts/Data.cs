@@ -7,10 +7,11 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class Data : MonoBehaviour
 {
     public bool _bSeeSaw;
-    Hashtable hash = new Hashtable();
+    
     // Start is called before the first frame update
     void Start()
     {
+        Hashtable hash = new Hashtable();
         _bSeeSaw = true;
         hash.Add("seesawbool",_bSeeSaw);
         PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
