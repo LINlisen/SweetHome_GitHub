@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 	PhotonView PV;
     GameObject UpInformation;
+    Material playerColor;
     /*Organ*/
     //[SerializeField] private GameObject SeesawSet;
 
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
     public float maxAngle;
     public float minAngle;
 
-   
+    Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
 
     //treasure
     [SerializeField] private GameObject treasure;
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<CharacterController>();
-		PV = GetComponent<PhotonView>();
+        PV = GetComponent<PhotonView>();
         UpInformation = GameObject.Find("UpInformationCanvas");
         treasure = GameObject.Find("Wooden_Chest");
         playerAni = GetComponent<Animator>();
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        
         Debug.Log(playerController.name);
         if (PV.IsMine)
         {
