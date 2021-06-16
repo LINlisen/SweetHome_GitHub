@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class DoorTrigger : MonoBehaviour
 {
@@ -14,7 +18,8 @@ public class DoorTrigger : MonoBehaviour
 
     bool playerHere;
     bool isOpened;
-
+    Hashtable dooropen = new Hashtable();
+    Hashtable isopen = new Hashtable();
     //float countTime=10;
     //float count=0;
 
@@ -22,24 +27,44 @@ public class DoorTrigger : MonoBehaviour
     {
         playerHere = false;
         isOpened = false;
-
+        dooropen.Add("DoorState", false);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+        isopen = PhotonNetwork.CurrentRoom.CustomProperties;
     }
     private void Update()
     {
-        if (playerHere)
+        //if (playerHere)
+        //{
+            
+        //    if (Door.transform.position.y < maxOpen)//move LeftRight
+        //    {
+        //        //Debug.Log(playerHere);
+        //        Door.transform.Translate( 0f, doorSpeed * Time.deltaTime, 0f);
+        //    }
+        //}
+        //else
+        //{
+
+        //    if (Door.transform.position.y > maxClose)
+        //    {
+        //        //Debug.Log(playerHere);
+        //        Door.transform.Translate( 0f, -doorSpeed * Time.deltaTime, 0f);
+        //    }
+        //}
+        if ((bool)isopen["DoorState"])
         {
             if (Door.transform.position.y < maxOpen)//move LeftRight
             {
                 //Debug.Log(playerHere);
-                Door.transform.Translate( 0f, doorSpeed * Time.deltaTime, 0f);
+                Door.transform.Translate(0f, doorSpeed * Time.deltaTime, 0f);
             }
         }
-        else
+        else if(!(bool)isopen["DoorState"])
         {
             if (Door.transform.position.y > maxClose)
             {
                 //Debug.Log(playerHere);
-                Door.transform.Translate( 0f, -doorSpeed * Time.deltaTime, 0f);
+                Door.transform.Translate(0f, -doorSpeed * Time.deltaTime, 0f);
             }
         }
     }
@@ -48,6 +73,8 @@ public class DoorTrigger : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerHere = true;
+            dooropen["DoorState"] = true;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
         }
     }
     private void OnTriggerExit(Collider col)
@@ -55,6 +82,8 @@ public class DoorTrigger : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerHere = false;
+            dooropen["DoorState"] = false;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
         }
     }
     //private void OnTriggerStay(Collider col)

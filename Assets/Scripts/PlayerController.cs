@@ -280,16 +280,16 @@ public class PlayerController : MonoBehaviour
         //treasure
         if (other.tag == "TreasureNormal")
         {
-            
-            Animator boxAnim = treasure.GetComponent<Animator>();
-            boxAnim.SetBool("openbox", true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureNormal("Wooden_Chest", true);
+            //Animator boxAnim = treasure.GetComponent<Animator>();
+            //boxAnim.SetBool("openbox", true);
         }
         //easter
         if (other.tag == "TreasureDeath")
         {
-            Debug.Log("Die");
-            Animator diebox = other.GetComponentInParent<Animator>();
-            diebox.SetBool("openbox", true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("TreasureDeath", true);
+            //Animator diebox = other.GetComponentInParent<Animator>();
+            //diebox.SetBool("openbox", true);
         }
 
         /*PotionGet*/

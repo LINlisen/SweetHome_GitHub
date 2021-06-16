@@ -11172,7 +11172,7 @@ GameObject:
   - component: {fileID: 5541628848507500136}
   m_Layer: 0
   m_Name: Wooden_Chest
-  m_TagString: Untagged
+  m_TagString: TreasureNormal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

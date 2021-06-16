@@ -13,7 +13,8 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte TAKE_TOAST = 1;
     private const byte SEE_SAW_RIGHT = 2;
     private const byte SEE_SAW_LEFT = 3;
-
+    private const byte TREASURE_NORMAL = 4;
+    private const byte TREASURE_DEATH = 5;
     void Start()
     {
        
@@ -63,6 +64,24 @@ public class RaiseEvent : MonoBehaviourPun
             Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC");
         }
+        if (obj.Code == TREASURE_NORMAL)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string ObjTag = (string)datas[0];
+            bool ObjState = (bool)datas[1];
+            Animator anim = GameObject.Find(ObjTag).GetComponent<Animator>();
+            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            anim.SetBool("openbox", true);
+        }
+        if (obj.Code == TREASURE_DEATH)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string ObjTag = (string)datas[0];
+            bool ObjState = (bool)datas[1];
+            Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            anim.SetBool("openbox", true);
+        }
     }
 
     public void getPotion(string name)
@@ -100,4 +119,21 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(SEE_SAW_LEFT, datas, raiseEventOptions, SendOptions.SendReliable);
     }
+    public void TreasureNormal(string tag, bool state)
+    {
+        string ObjTag = tag;
+        bool ObjState = state;
+        object[] datas = new object[] { ObjTag, ObjState };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(TREASURE_NORMAL, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void TreasureDeath(string tag, bool state)
+    {
+        string ObjTag = tag;
+        bool ObjState = state;
+        object[] datas = new object[] { ObjTag, ObjState };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(TREASURE_DEATH, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
 }
