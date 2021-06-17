@@ -57,8 +57,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("Loading");
-        
-
     }
 
     public override void OnJoinedRoom()
@@ -112,6 +110,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
+        Hashtable time = new Hashtable();
+        time.Add("Time", 0);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
     }
 
     public void LeaveRoom()
