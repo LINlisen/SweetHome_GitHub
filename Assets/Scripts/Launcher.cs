@@ -110,6 +110,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
+        Hashtable time = new Hashtable();
+        time.Add("Time", 0);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
     }
 
     public void LeaveRoom()
