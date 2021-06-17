@@ -26,11 +26,14 @@ public class TimeController : MonoBehaviour
 
     void Start()
     {
+        Hashtable time = new Hashtable();
+        time.Add("Time", "1");
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
         RedTeam = 0;
         BlueTeam = 0;
         //text_RT.text = RedTeam.ToString();
         //text_BT.text = BlueTeam.ToString();
-        Hashtable time = PhotonNetwork.CurrentRoom.CustomProperties;
+        time = PhotonNetwork.CurrentRoom.CustomProperties;
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             allSeconds = (minutes * 60) + seconds;
@@ -39,6 +42,7 @@ public class TimeController : MonoBehaviour
         }
         else
         {
+        
             allSeconds = (int)time["Time"];
         }
         StartCoroutine(Timmer(allSeconds)); // 呼叫協程
