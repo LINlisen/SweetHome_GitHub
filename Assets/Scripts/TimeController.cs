@@ -30,15 +30,16 @@ public class TimeController : MonoBehaviour
         BlueTeam = 0;
         //text_RT.text = RedTeam.ToString();
         //text_BT.text = BlueTeam.ToString();
-        Hashtable time = PhotonNetwork.CurrentRoom.CustomProperties;
+        Hashtable time = new Hashtable();
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             allSeconds = (minutes * 60) + seconds;
-            time["Time"] = allSeconds;
+            time.Add("Time", allSeconds);
             PhotonNetwork.CurrentRoom.SetCustomProperties(time);
         }
         else
         {
+            time = PhotonNetwork.CurrentRoom.CustomProperties;
             allSeconds = (int)time["Time"];
         }
         StartCoroutine(Timmer(allSeconds)); // 呼叫協程
@@ -72,7 +73,6 @@ public class TimeController : MonoBehaviour
                 currenttime--;
                 time["Time"] = currenttime;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-                Debug.Log("mtime");
             }
             else
             {
@@ -80,7 +80,6 @@ public class TimeController : MonoBehaviour
                 Debug.Log((int)time["Time"]);
                 minutes = currenttime / 60;
                 seconds = currenttime % 60;
-                Debug.Log("ctime");
             }
             seconds--; //換算
 
@@ -109,7 +108,7 @@ public class TimeController : MonoBehaviour
             //更改顯示的時間
 
             text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
-            
+
         }
 
         yield return new WaitForSeconds(1); //為了顯示 00:00 停留一秒再顯示 GAME OVER
