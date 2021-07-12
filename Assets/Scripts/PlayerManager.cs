@@ -9,7 +9,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
-    Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
+    Hashtable team;
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -17,10 +17,12 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+        team = PhotonNetwork.LocalPlayer.CustomProperties;
         if (PV.IsMine)
         {
             CreateController();
         }
+        
     }
 
     void CreateController()

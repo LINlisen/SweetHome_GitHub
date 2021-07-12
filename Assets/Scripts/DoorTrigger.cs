@@ -33,40 +33,31 @@ public class DoorTrigger : MonoBehaviour
     }
     private void Update()
     {
-        //if (playerHere)
-        //{
-            
-        //    if (Door.transform.position.y < maxOpen)//move LeftRight
-        //    {
-        //        //Debug.Log(playerHere);
-        //        Door.transform.Translate( 0f, doorSpeed * Time.deltaTime, 0f);
-        //    }
-        //}
-        //else
-        //{
-
-        //    if (Door.transform.position.y > maxClose)
-        //    {
-        //        //Debug.Log(playerHere);
-        //        Door.transform.Translate( 0f, -doorSpeed * Time.deltaTime, 0f);
-        //    }
-        //}
-        if ((bool)isopen["DoorState"])
+        if (isopen["DoorState"] == null)
         {
-            if (Door.transform.position.y < maxOpen)//move LeftRight
+            return ;
+        }
+        else
+        {
+            Debug.Log((bool)isopen["DoorState"]);
+            if ((bool)isopen["DoorState"])
             {
-                //Debug.Log(playerHere);
-                Door.transform.Translate(0f, doorSpeed * Time.deltaTime, 0f);
+                if (Door.transform.position.y < maxOpen)//move LeftRight
+                {
+                    //Debug.Log(playerHere);
+                    Door.transform.Translate(0f, doorSpeed * Time.deltaTime, 0f);
+                }
+            }
+            else if (!(bool)isopen["DoorState"])
+            {
+                if (Door.transform.position.y > maxClose)
+                {
+                    //Debug.Log(playerHere);
+                    Door.transform.Translate(0f, -doorSpeed * Time.deltaTime, 0f);
+                }
             }
         }
-        else if(!(bool)isopen["DoorState"])
-        {
-            if (Door.transform.position.y > maxClose)
-            {
-                //Debug.Log(playerHere);
-                Door.transform.Translate(0f, -doorSpeed * Time.deltaTime, 0f);
-            }
-        }
+       
     }
     private void OnTriggerEnter(Collider col)
     {

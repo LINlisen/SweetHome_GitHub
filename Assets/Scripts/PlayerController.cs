@@ -6,12 +6,12 @@ using TouchControlsKit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField] GameObject camerHolder;
+    [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-	[SerializeField] Item[] items;
+    [SerializeField] Item[] items;
     Animator playerAni;
-	int itemIndex;
-	int previousItemIndex = -1;
+    int itemIndex;
+    int previousItemIndex = -1;
     public GameObject rotation_Wall;
     public GameObject RedDoor;
     public GameObject BlueDoor;
@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
 
-    bool _bIsDash=false;
-    private float dashTime=0.0f;
+    bool _bIsDash = false;
+    private float dashTime = 0.0f;
     private Vector3 directionXOZ;
     public float dashDuration;// 控制冲刺时间
     public float dashSpeed;// 冲刺速度
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController playerController;
     Rigidbody rb;
-	PhotonView PV;
+    PhotonView PV;
     GameObject UpInformation;
     Material playerColor;
     /*Organ*/
@@ -48,8 +48,7 @@ public class PlayerController : MonoBehaviour
     private bool playerOnRightSeesaw;
     public float maxAngle;
     public float minAngle;
-
-    Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
+    Hashtable team;
 
     //treasure
     [SerializeField] private GameObject treasure;
@@ -72,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        team = PhotonNetwork.LocalPlayer.CustomProperties;
         Debug.Log(playerController.name);
         if (PV.IsMine)
         {
