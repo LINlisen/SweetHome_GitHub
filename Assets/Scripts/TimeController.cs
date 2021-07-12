@@ -24,24 +24,18 @@ public class TimeController : MonoBehaviour
     private int RedTeam;
     private int BlueTeam;
 
+    Hashtable time = new Hashtable();
+    Hashtable ctime = new Hashtable();
+
     void Start()
     {
         RedTeam = 0;
         BlueTeam = 0;
         //text_RT.text = RedTeam.ToString();
         //text_BT.text = BlueTeam.ToString();
-        Hashtable time = new Hashtable();
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            allSeconds = (minutes * 60) + seconds;
-            time.Add("Time", allSeconds);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-        }
-        else
-        {
-            time = PhotonNetwork.CurrentRoom.CustomProperties;
-            allSeconds = (int)time["Time"];
-        }
+        time.Add("Time", 0);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
+        allSeconds = (minutes * 60) + seconds;
         StartCoroutine(Timmer(allSeconds)); // 呼叫協程
 
     }
@@ -58,7 +52,6 @@ public class TimeController : MonoBehaviour
     {
 
         /*allSeconds = (minutes * 60) + seconds;*/ //時間換算為秒數
-        Hashtable time = PhotonNetwork.CurrentRoom.CustomProperties;
         /*text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));*/ //顯示一次最初的時間
 
         //使用迴圈和 WaitForSeconds 來計秒
@@ -76,8 +69,9 @@ public class TimeController : MonoBehaviour
             }
             else
             {
-                currenttime = (int)time["Time"];
-                Debug.Log((int)time["Time"]);
+                ctime = PhotonNetwork.CurrentRoom.CustomProperties;
+                currenttime = (int)ctime["Time"];
+                Debug.Log((int)ctime["Time"]);
                 minutes = currenttime / 60;
                 seconds = currenttime % 60;
             }
