@@ -30,11 +30,11 @@ public class PlayerManager : MonoBehaviour
         int i = UnityEngine.Random.Range(0, 50);
         if ((int)team["WhichTeam"] == 1)
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "candywalk"), new Vector3(i, 20, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
         }
         else 
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "candywalkblue"), new Vector3(i, 20, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BlueCandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
         }
     }
 }
