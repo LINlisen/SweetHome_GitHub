@@ -44,7 +44,11 @@ public class RaiseEvent : MonoBehaviourPun
             bool b = (bool)datas[0];
             string PotionName = (string)datas[1];
             Debug.Log("NetWork"+ PotionName);
-            GameObject.Find(PotionName).SetActive(b);
+            if(GameObject.Find(PotionName) != null)
+            {
+                GameObject.Find(PotionName).SetActive(b);
+            }
+           
         }
         if(obj.Code==SEE_SAW_RIGHT)
         {
