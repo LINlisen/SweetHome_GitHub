@@ -11,7 +11,7 @@ using Photon.Pun.UtilityScripts;
 public class Launcher : MonoBehaviourPunCallbacks
 {
     public static Launcher Instance;
-
+    [SerializeField] TMP_InputField playerNicknameInputField;
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text roomNameText;
@@ -31,6 +31,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        MenuManager.Instance.OpenMenu("loading");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -44,9 +45,17 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        MenuManager.Instance.OpenMenu("title");
+        MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Joined Lobby");
-        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+        
+    }
+
+    public void setNickname()
+    {
+        Hashtable nickname = new Hashtable();
+        nickname.Add("Nickname",playerNicknameInputField.text);
+        PhotonNetwork.NickName = playerNicknameInputField.text;
+        MenuManager.Instance.OpenMenu("title");
     }
 
     public void CreateRoom()
