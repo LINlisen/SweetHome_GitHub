@@ -68,3 +68,11 @@ Update Mode: mergeDefaultDependencies
 
 The following packages were added:
   com.unity.postprocessing@2.3.0
+
+=== Thu Jul 22 19:04:32 2021
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ide.visualstudio@2.0.8
